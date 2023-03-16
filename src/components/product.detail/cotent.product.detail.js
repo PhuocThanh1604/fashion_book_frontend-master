@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import storeConfig from "../../config/storage.config";
 import { Modal, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { formatPrice } from "../../utils/utils";
 class ContentProductDetail extends Component {
   constructor(props) {
     super(props);
@@ -12,8 +13,8 @@ class ContentProductDetail extends Component {
       comment: "",
       quantity: 1,
       noti: false,
-      show:false,
-      pagination: []
+      show: false,
+      pagination: [],
     };
   }
   componentWillMount() {
@@ -25,12 +26,12 @@ class ContentProductDetail extends Component {
     if (storeConfig.getUser() !== null) {
       this.setState({
         name: storeConfig.getUser().firstName,
-        email: storeConfig.getUser().email
+        email: storeConfig.getUser().email,
       });
     } else {
       this.setState({
         name: "",
-        email: ""
+        email: "",
       });
     }
   }
@@ -45,7 +46,7 @@ class ContentProductDetail extends Component {
     if (nextProps.islogin === false) {
       this.setState({
         name: "",
-        email: ""
+        email: "",
       });
     }
   }
@@ -83,7 +84,7 @@ class ContentProductDetail extends Component {
       );
     }
   }
-  handlename = name => {
+  handlename = (name) => {
     if (this.state.name === "") {
       this.setState({ name: name });
     }
@@ -111,7 +112,7 @@ class ContentProductDetail extends Component {
   };
   submitOrder = () => {
     if (this.state.quantity < 0) {
-      this.setState({ noti: false});
+      this.setState({ noti: false });
       return;
     } else {
       this.setState({ noti: true });
@@ -121,30 +122,37 @@ class ContentProductDetail extends Component {
     this.props.addToCart(product);
   };
   render() {
-    let xhtml='';
+    let xhtml = "";
     console.log(this.state.noti);
-    if(this.state.noti){
-      xhtml = <div className='aler-box'>
-        <div className='btn-close ' onClick={() => this.setState({ noti: false })}>
-          X
+    if (this.state.noti) {
+      xhtml = (
+        <div className="aler-box">
+          <div
+            className="btn-close "
+            onClick={() => this.setState({ noti: false })}
+          >
+            X
+          </div>
+          <div className="aler-title">
+            <h3 className="title">Thông Tin Đơn Hàng</h3>
+          </div>
+          <div className="aler-body">Đặt Hàng thành công</div>
+          <div className="alert-footer">
+            <button
+              className="roduct-variation"
+              onClick={() => this.setState({ noti: false })}
+            >
+              Cancel
+            </button>
+          </div>
         </div>
-      <div className='aler-title'>
-        <h3 className='title'>Thông Tin Đơn Hàng</h3>
-      </div>
-      <div className='aler-body'>Đặt Hàng thành công</div>
-      <div className='alert-footer'>
-        <button className="roduct-variation" onClick={() => this.setState({ noti: false })}>
-          Cancel
-          
-        </button>
-      </div>
-    </div>
+      );
     }
     return (
-      <section>
+      <section style={{ paddingTop: "50px" }}>
         <div className="container">
           <div className="row">
-            <div className="col-sm-3">
+            {/* <div className="col-sm-3">
               <div className="left-sidebar">
                 <h2>Category</h2>
                 <div className="panel-group category-products" id="accordian">
@@ -162,69 +170,75 @@ class ContentProductDetail extends Component {
                 </div>
                 
               </div>
-            </div>
-            <div className="col-sm-9 padding-right">
+            </div> */}
+            <div className="col-sm-12 padding-right">
               <div className="product-details">
                 <div className="col-sm-5">
                   <div className="view-product">
                     <img src={this.props.mproductDetail.img} alt="" />
                   </div>
-                 
                 </div>
                 <div className="col-sm-7">
                   <div className="product-information">
-                    <img
-                      src="/assets/images/product-details/new.jpg"
-                      className="newarrival"
-                      alt=""
-                    />
-                    <h2>{this.props.mproductDetail.name}</h2>
-                   
+                    <h2>
+                      {this.props.mproductDetail.name}{" "}
+                      <img
+                        src="/assets/images/product-details/new.jpg"
+                        className="newarrival"
+                        alt=""
+                      />
+                    </h2>
+
                     <img src="images/product-details/rating.png" alt="" />
 
-                    <span>
+                    <span style={{ width: "100%" }}>
                       <div>
-                        <span>Giá:</span>
-                        <span>{this.props.mproductDetail.price}</span>
-                        
+                        <span>
+                          {formatPrice(this.props.mproductDetail.price)}
+                          <sup>đ</sup>
+                        </span>
                       </div>
-                      <div className='count-product'>
-                        <p className='count'>Số Lượng:</p>
-                        <input
+                    </span>
+                    <div className="product-info-detail">
+                      <p>{this.state.noti}</p>
+                      <p>
+                        <b>Thể loại:</b> {this.props.nameCategory}
+                      </p>
+                      <p>
+                        <b>Ngày xuất bản: </b>{" "}
+                        {new Date(
+                          this.props.mproductDetail.release_date
+                        ).toDateString("yyyy-MM-dd")}
+                      </p>
+                      <p>
+                        <b>Nhà xuất bản:</b> {this.props.namePublicsher}
+                      </p>
+                      <p>
+                        <b>Tác giả:</b> {this.props.nameAuthor}
+                      </p>
+                    </div>
+                    <div className="count-product">
+                      <p className="count">Số lượng:</p>
+                      <input
                         type="number"
-                        min="0"
-                        onChange={e =>
+                        min="1"
+                        onChange={(e) =>
                           this.setState({ quantity: e.target.value })
                         }
                         value={this.state.quantity}
                       />
-                      </div>
-                      <button
-                        onClick={() => this.submitOrder()}
-                        type="button"
-                        className="btn btn-default cart"
-                      >
-                        <i className="fa fa-shopping-cart" />
-                        Add to cart
-                      </button>
-                    </span>
-                    <p>{this.state.noti}</p>
-                    <p>
-                      <b>Category:</b> {this.props.nameCategory}
-                    </p>
-                    <p>
-                      <b>Release date </b>{" "}
-                      {new Date(
-                        this.props.mproductDetail.release_date
-                      ).toDateString("yyyy-MM-dd")}
-                    </p>
-                    <p>
-                      <b>Publisher:</b> {this.props.namePublicsher}
-                    </p>
-                    <p>
-                      <b>Author:</b> {this.props.nameAuthor}
-                    </p>
-                   
+                    </div>
+                    <button
+                      onClick={() => this.submitOrder()}
+                      type="button"
+                      className="btn btn-default cart"
+                    >
+                      <i
+                        style={{ marginRight: "10px" }}
+                        className="fa fa-shopping-cart"
+                      />
+                      Thêm vào giỏ
+                    </button>
                   </div>
                   <Modal
                     show={this.state.show}
@@ -242,63 +256,60 @@ class ContentProductDetail extends Component {
                       <Button onClick={() => this.setState({ show: false })}>
                         <a>Cancel</a>
                       </Button>
-                      
                     </Modal.Footer>
                   </Modal>
                 </div>
                 {xhtml}
-               
-                  <div className="col-sm-12 review-product">
-                    <div>
-                      <h3>Review Sách</h3>
-                    </div>
-                   
-                  </div>
-                  <div className="tab-content">
 
-                    <div className="tab-pane fade active in" id="reviews">
-                      <div className="col-sm-12">
-                        <div className="content-conment">
-                          {this.props.comment.map((element, index) => {
-                            return (
-                              <p>
-                                <span>{element.name}:</span> {element.comment}
-                              </p>
-                            );
-                          })}
-                          <div className='Pagination-flex'>
-                            {this.renderPagination()}
-                          </div>
-                         
+                <div className="col-sm-12 review-product">
+                  <div>
+                    <h3>Review Sách</h3>
+                  </div>
+                </div>
+                <div className="tab-content">
+                  <div className="tab-pane fade active in" id="reviews">
+                    <div className="col-sm-12">
+                      <div className="content-conment">
+                        {this.props.comment.map((element, index) => {
+                          return (
+                            <p>
+                              <span>{element.name}:</span> {element.comment}
+                            </p>
+                          );
+                        })}
+                        <div className="Pagination-flex">
+                          {this.renderPagination()}
                         </div>
-                        <hr />
-                        <p style={{ color: "#5BBCEC" }}>
-                          {this.state.notificationComment}
-                        </p>
-                        <p>
-                          <h4><b>Bình Luận</b></h4>
-                        </p>
-
-                        <form action="#">
-                        
-                          <textarea
-                            value={this.state.comment}
-                            onChange={e =>
-                              this.setState({ comment: e.target.value })
-                            }
-                          />
-                          <button
-                            type="button"
-                            className="btn btn-default pull-right"
-                            onClick={() => this.submitComment()}
-                          >
-                            Bình Luận
-                          </button>
-                        </form>
                       </div>
+                      <hr />
+                      <p style={{ color: "#5BBCEC" }}>
+                        {this.state.notificationComment}
+                      </p>
+                      <p>
+                        <h4>
+                          <b>Bình Luận</b>
+                        </h4>
+                      </p>
+
+                      <form action="#">
+                        <textarea
+                          value={this.state.comment}
+                          onChange={(e) =>
+                            this.setState({ comment: e.target.value })
+                          }
+                        />
+                        <button
+                          type="button"
+                          className="btn btn-default pull-right"
+                          onClick={() => this.submitComment()}
+                        >
+                          Bình Luận
+                        </button>
+                      </form>
                     </div>
                   </div>
-             
+                </div>
+
                 <div className="recommended_items">
                   <h2 className="title text-center">recommended items</h2>
 
@@ -317,7 +328,13 @@ class ContentProductDetail extends Component {
                                   <div className="productinfo text-center">
                                     <a href={"/product/" + element._id}>
                                       <img src={element.img} alt="" />
-                                      <h2>  {new Intl.NumberFormat('de-DE', {currency: 'EUR' }).format(element.price)}<sup>đ</sup></h2>
+                                      <h2>
+                                        {" "}
+                                        {new Intl.NumberFormat("de-DE", {
+                                          currency: "EUR",
+                                        }).format(element.price)}
+                                        <sup>đ</sup>
+                                      </h2>
                                       <p>{element.describe}</p>{" "}
                                     </a>
                                     <button
@@ -328,8 +345,8 @@ class ContentProductDetail extends Component {
                                       type="button"
                                       className="btn btn-default add-to-cart"
                                     >
-                                      <i className="fa fa-shopping-cart" />Add
-                                      to cart
+                                      <i className="fa fa-shopping-cart" />
+                                      Add to cart
                                     </button>
                                   </div>
                                 </div>
@@ -359,7 +376,6 @@ class ContentProductDetail extends Component {
             </div>
           </div>
         </div>
-             
       </section>
     );
   }

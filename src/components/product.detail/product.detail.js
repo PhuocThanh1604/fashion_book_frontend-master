@@ -14,18 +14,17 @@ class ProductDetail extends Component {
     return (
       <div>
         <header id="header">
-      
           <HeaderMiddle
             islogin={this.props.islogin}
             logout={() => this.props.logout()}
             history={this.props.history}
           />
-          <HeaderBottom
+          {/* <HeaderBottom
             sortType={this.props.sortType}
-            setSortType={value => this.props.setSortType(value)}
-            setSearchText={value => this.props.setSearchText(value)}
+            setSortType={(value) => this.props.setSortType(value)}
+            setSearchText={(value) => this.props.setSearchText(value)}
             searchTextSubmit={() => this.props.searchTextSubmit()}
-          />
+          /> */}
         </header>
         <ContentProductDetail
           category={this.props.category}
@@ -41,17 +40,15 @@ class ProductDetail extends Component {
           }
           comment={this.props.comment}
           nameAuthor={this.props.nameAuthor}
-          addToCart={product => this.props.addToCart(product)}
+          addToCart={(product) => this.props.addToCart(product)}
           totalpage={this.props.totalpage}
           page={this.props.page}
           backPage={() => this.props.backPage()}
           nextPage={() => this.props.nextPage()}
-          setPage={page => this.props.setPage(page)}
+          setPage={(page) => this.props.setPage(page)}
         />
         <footer id="footer">
           <FooterTop />
-          <FooterMiddle />
-          <FooterBottom />
         </footer>
       </div>
     );
