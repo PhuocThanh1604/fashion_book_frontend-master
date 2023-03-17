@@ -1644,8 +1644,8 @@
         background-color: #f15129;
         border: 1px solid #f15129;
         color: #fff;
-        font-size: 20px;
-        transition: all 0.3s ease-in-out;
+        /* font-size: 20px;
+        transition: all 0.3s ease-in-out; */
       }
       .login-form, .signup-form{
         display: flex;
@@ -1952,7 +1952,12 @@
         border: 1px solid #E6E4DF;
         margin-bottom: 50px
       }
-
+      .cart_info{
+        border-radius: 5px;
+        overflow:hidden;
+        border: 1px solid #E6E4DF;
+        margin-bottom: 50px;
+      }
       #cart_items .cart_info span {
         margin-left: 5px;
         cursor: pointer;
@@ -2154,9 +2159,10 @@
       #do_action .total_area, #do_action .chose_area {
         border: 1px solid #E6E4DF;
         color: #696763;
-        padding: 30px 25px 30px 0;
+        padding: 30px 45px 30px 15px;
         margin-bottom: 80px;
         border-radius: 5px;
+        color:#000;
       }
 
       .total_area span {
@@ -2164,11 +2170,24 @@
       }
 
       .total_area ul li {
-        background:#E6E4DF;
+        /* background:#E6E4DF;
         color: #696763;
         margin-top: 10px;
         padding: 7px 20px;
-        border-radius: 3px;
+        border-radius: 3px; */
+        font-size:16px;
+        margin-bottom: 10px;
+      }
+      .total_area ul{
+        padding-left:20px;
+      }
+      .total_area ul li span {
+        /* background:#E6E4DF;
+        color: #696763;
+        margin-top: 10px;
+        padding: 7px 20px;
+        border-radius: 3px; */
+        font-weight: 600;
       }
     .cart-option{
       display: flex;
@@ -2183,18 +2202,22 @@
         color: #696763;
         font-weight: normal;
         margin-right: 50px;
-        width: 20px;
+        width: 90px;
       }
+      .user_option input:focus {
+        outline: none;        ;
+        }
       .user_option input {
         line-height: 20px;
-        font-size: 16px;
+        font-size: 14px;
+        padding: 0.5rem 0;
         padding-left: 10px;
         padding-right: 10px;
         background-color: transparent;
         border-radius: 5px 5px;
         width: 40%;
         margin-right: 10px;
-        padding: 0.5rem 0;
+      
         border: 1px solid #f15129;
       }
       .user_option span {
@@ -2254,6 +2277,7 @@
 
       .chose_area .update {
         margin-left: 40px;
+        font-size:14px;
       }
 
       .update, .check_out {
@@ -2262,8 +2286,15 @@
         color: #FFFFFF;
         margin-top: 18px;
         border: none;
-        padding: 5px 15px;
-        
+        padding: 8px 20px;
+        font-size:14px;
+      }
+      .update:hover, .check_out:hover {
+        background: #FFFFFF;
+        color: #f15129;
+        transform: none;
+        transition:none;
+        transition-timing-function:none;
       }
       .update{
           margin-left: 40px;

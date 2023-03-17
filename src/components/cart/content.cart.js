@@ -246,7 +246,7 @@ class ContentCart extends Component {
                         <a>Cancel</a>
                       </Button>
                       <Button onClick={this.handleHide}>
-                        <Link to="/login_register">Login</Link>
+                        <Link to="/login_register">Đăng nhập</Link>
                       </Button>
                     </Modal.Footer>
                   </Modal>
@@ -258,7 +258,7 @@ class ContentCart extends Component {
                 <div className="chose_area">
                   <ul class="user_option">
                     <li>
-                      <label>Name</label>
+                      <label>Họ và tên</label>
                       <input
                         type="text"
                         value={this.state.name}
@@ -269,7 +269,7 @@ class ContentCart extends Component {
                       <span>{this.state.notiName}</span>
                     </li>
                     <li>
-                      <label>Phone</label>
+                      <label>Số điện thoại</label>
                       <input
                         type="text"
                         value={this.state.phone}
@@ -283,7 +283,7 @@ class ContentCart extends Component {
 
                   <ul className="user_option">
                     <li>
-                      <label>Address</label>
+                      <label>Địa chỉ</label>
                       <input
                         type="text"
                         value={this.state.address}
@@ -302,7 +302,7 @@ class ContentCart extends Component {
                   >
                     <Modal.Header closeButton>
                       <Modal.Title id="contained-modal-title">
-                        Notification
+                        Thông báo
                       </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
@@ -331,7 +331,7 @@ class ContentCart extends Component {
                         Notification
                       </Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>Đặt Hang Thất Bại</Modal.Body>
+                    <Modal.Body>Đặt Hàng Thất Bại</Modal.Body>
                     <Modal.Footer>
                       <Button
                         onClick={() =>
@@ -347,10 +347,10 @@ class ContentCart extends Component {
                       className="btn btn-default update"
                       onClick={() => this.handlePayment()}
                     >
-                      Payment
+                      Xác nhận
                     </button>
                     <Link class="btn btn-default check_out" to={"/"}>
-                      Continue shopping
+                      Tiếp tục mua sắm
                     </Link>
                   </div>
                 </div>

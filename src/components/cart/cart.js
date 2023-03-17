@@ -36,8 +36,8 @@ class Cart extends Component {
         />
         <footer id="footer">
           <FooterTop />
-          <FooterMiddle />
-          <FooterBottom />
+          {/* <FooterMiddle />
+          <FooterBottom /> */}
         </footer>
       </div>
     );
