@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ProductItem from "./product.item";
 import { Link } from "react-router-dom";
+import { max } from "lodash";
 class ContentHome extends Component {
   constructor(props) {
     super(props);
@@ -10,7 +11,7 @@ class ContentHome extends Component {
       check_2: false,
       check_3: false,
       check_4: false,
-      check_5: false
+      check_5: false,
     };
   }
   componentWillMount() {
@@ -69,7 +70,7 @@ class ContentHome extends Component {
       check_2: false,
       check_3: false,
       check_4: false,
-      check_5: false
+      check_5: false,
     });
   };
   render() {
@@ -81,12 +82,28 @@ class ContentHome extends Component {
               <div className="left-sidebar">
                 <h2>Thể Loại</h2>
                 <div className="panel-group category-products" id="accordian">
+                  <div
+                    onClick={() => {
+                      this.resetCheck();
+                      this.props.setTitle("TẤT CẢ");
+                      this.props.setBranch(null);
+                      this.props.setIDBranch(null);
+                      this.props.branchClick(null, null);
+                    }}
+                    className="panel panel-default"
+                  >
+                    <div className="panel-heading">
+                      <h4 className="panel-title item-custom">
+                        <a>Tất cả</a>
+                      </h4>
+                    </div>
+                  </div>
                   {this.props.category.map((element, index) => {
                     return (
                       <div
                         key={index}
                         onClick={() => {
-                        this.resetCheck()
+                          this.resetCheck();
                           this.props.setTitle(element.name);
                           this.props.setBranch("category");
                           this.props.setIDBranch(element._id);
@@ -103,85 +120,88 @@ class ContentHome extends Component {
                     );
                   })}
                 </div>
-            
-                <div className="price-range">
-                  <h2>Giá tiền</h2>
-                  <div className="well ">
-                    <div className="radio">
-                      <label
-                        onClick={() => {
-                          this.props.setRangeType(null);
-                          this.resetCheck();
-                          this.setState({ check_1: true });
-                        }}
-                      >
-                        <input
-                          type="radio"
-                          name="optradio"
-                          checked={this.state.check_1}
-                        />ALl price
-                      </label>
+                <h2>Giá tiền</h2>
+                <div className="panel-group category-products">
+                  <div
+                    className="panel panel-default"
+                    onClick={() => {
+                      this.props.setRangeType(null);
+                      this.resetCheck();
+                      this.setState({ check_1: true });
+                    }}
+                  >
+                    <div className="panel-heading">
+                      <h4 className="panel-title item-custom">
+                        <a>Tất cả giá</a>
+                      </h4>
                     </div>
-                    <div className="radio">
-                      <label
-                        onClick={() => {
-                          this.props.setRangeType({ low: 0, high: 50000 });
-                          this.resetCheck();
-                          this.setState({ check_2: true });
-                        }}
-                      >
-                        <input
-                          type="radio"
-                          name="optradio"
-                          checked={this.state.check_2}
-                        />0 ---- 50.000
-                      </label>
+                  </div>
+                  <div
+                    className="panel panel-default"
+                    onClick={() => {
+                      this.props.setRangeType({
+                        low: 0,
+                        high: 100000,
+                      });
+                      this.resetCheck();
+                      this.setState({ check_2: true });
+                    }}
+                  >
+                    <div className="panel-heading">
+                      <h4 className="panel-title item-custom">
+                        <a>Dưới 100.000đ</a>
+                      </h4>
                     </div>
-                    <div className="radio ">
-                      <label
-                        onClick={() => {
-                          this.props.setRangeType({ low: 50000, high: 100000 });
-                          this.resetCheck();
-                          this.setState({ check_3: true });
-                        }}
-                      >
-                        <input
-                          type="radio"
-                          name="optradio"
-                          checked={this.state.check_3}
-                        />50.000 ---- 100.000 
-                      </label>
+                  </div>
+                  <div
+                    className="panel panel-default"
+                    onClick={() => {
+                      this.props.setRangeType({
+                        low: 100000,
+                        high: 200000,
+                      });
+                      this.resetCheck();
+                      this.setState({ check_3: true });
+                    }}
+                  >
+                    <div className="panel-heading">
+                      <h4 className="panel-title item-custom">
+                        <a>100.000 - 200.000đ</a>
+                      </h4>
                     </div>
-                    <div className="radio ">
-                      <label
-                        onClick={() => {
-                          this.resetCheck();
-                          this.setState({ check_4: true });
-                          this.props.setRangeType({ low: 100000, high: 150000 });
-                        }}
-                      >
-                        <input
-                          type="radio"
-                          name="optradio"
-                          checked={this.state.check_4}
-                        />100.000 ---- 150.000
-                      </label>
+                  </div>
+                  <div
+                    className="panel panel-default"
+                    onClick={() => {
+                      this.props.setRangeType({
+                        low: 200000,
+                        high: 300000,
+                      });
+                      this.resetCheck();
+                      this.setState({ check_4: true });
+                    }}
+                  >
+                    <div className="panel-heading">
+                      <h4 className="panel-title item-custom">
+                        <a>200.000 - 300.000đ</a>
+                      </h4>
                     </div>
-                    <div className="radio ">
-                      <label
-                        onClick={() => {
-                          this.props.setRangeType({ low: 150000, high: 1500000 });
-                          this.resetCheck();
-                          this.setState({ check_5: true });
-                        }}
-                      >
-                        <input
-                          type="radio"
-                          name="optradio"
-                          checked={this.state.check_5}
-                        />{" "}
-                        >= 150.000
-                      </label>
+                  </div>
+                  <div
+                    className="panel panel-default"
+                    onClick={() => {
+                      this.props.setRangeType({
+                        low: 300000,
+                        high: Number.MAX_SAFE_INTEGER,
+                      });
+                      this.resetCheck();
+                      this.setState({ check_5: true });
+                    }}
+                  >
+                    <div className="panel-heading">
+                      <h4 className="panel-title item-custom">
+                        <a>Trên 300.000đ</a>
+                      </h4>
                     </div>
                   </div>
                 </div>
@@ -190,9 +210,7 @@ class ContentHome extends Component {
 
             <div className="col-sm-9 padding-right">
               <div className="features_items">
-                <h2 className="title text-center">
-                  {this.props.title}
-                </h2>
+                <h2 className="title text-center">{this.props.title}</h2>
                 {this.props.book.map((element, index) => {
                   return (
                     <ProductItem
@@ -202,12 +220,13 @@ class ContentHome extends Component {
                       describe={element.describe}
                       id={element._id}
                       name={element.name}
-                      addToCart={product => this.props.addToCart(product)}
+                      sale={element.sales}
+                      addToCart={(product) => this.props.addToCart(product)}
                     />
                   );
                 })}
               </div>
-              <div className='Pagination-flex'>{this.renderPagination()}</div>
+              <div className="Pagination-flex">{this.renderPagination()}</div>
             </div>
           </div>
         </div>
