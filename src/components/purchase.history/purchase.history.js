@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { formatPrice } from "../../utils/utils";
 import FooterBottom from "../footer/footer.bottom";
 import FooterMiddle from "../footer/footer.middle";
 import FooterTop from "../footer/footer.top";
@@ -28,14 +29,6 @@ class HistoryPurchase extends Component {
               className="table-responsive cart_info"
               style={{ marginBottom: "50px" }}
             >
-              <span>
-                Date: {new Date(element.date).toDateString("yyyy-MM-dd")}
-              </span>
-              <p className="cart_total_price">
-                Total: {this.caculatorTotalBill(element.products)}
-                <sup>đ</sup>
-              </p>
-
               <table className="table table-condensed">
                 <thead>
                   <tr className="cart_menu">
@@ -86,7 +79,28 @@ class HistoryPurchase extends Component {
                   })}
                 </tbody>
               </table>
-              <div className="login-form">
+              <div
+                style={{
+                  width: "100%",
+                  padding: "10px 20px",
+                  paddingRight: "90px",
+                }}
+              >
+                <div className="cart_total_price_bill">
+                  <span>Tổng đơn:</span>{" "}
+                  <span>
+                    {formatPrice(this.caculatorTotalBill(element.products))}
+                    <sup>đ</sup>
+                  </span>
+                </div>
+                <div className="cart_total_price_bill">
+                  <span>Ngày:</span>
+                  <span>
+                    {new Date(element.date).toDateString("yyyy-MM-dd")}
+                  </span>
+                </div>
+              </div>
+              <div className="login-form" style={{ padding: "0", margin: 0 }}>
                 <div className="delete-cart">
                   <button
                     onClick={() => this.props.deleteBill(element._id)}
@@ -369,8 +383,8 @@ class HistoryPurchase extends Component {
         </div>
         <footer id="footer">
           <FooterTop />
-          <FooterMiddle />
-          <FooterBottom />
+          {/* <FooterMiddle />
+          <FooterBottom /> */}
         </footer>
       </div>
     );

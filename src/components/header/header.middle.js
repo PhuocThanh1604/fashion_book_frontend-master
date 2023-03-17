@@ -85,8 +85,7 @@ class HeaderMiddle extends Component {
           }}
         >
           <a>
-            <i className="fa fa-lock" />
-            Logout
+            <i class="fa fa-arrow-right"></i>
           </a>
         </li>
       );
@@ -94,7 +93,7 @@ class HeaderMiddle extends Component {
       return (
         <li>
           <Link to="/login_register">
-            <i className="fa fa-lock" />
+            <i class="fa fa-user" aria-hidden="true"></i>
           </Link>
         </li>
       );
@@ -149,7 +148,9 @@ class HeaderMiddle extends Component {
                 <ul className="nav navbar-nav collapse navbar-collapse">
                   <li className="dropdown ">
                     <a className="Setting-item mt-0">
-                      <i className="fa fa-user dropbtn"></i>
+                      {this.props.islogin && (
+                        <i className="fa fa-user dropbtn"></i>
+                      )}
                     </a>
                     {this.hoverlogin()}
                   </li>

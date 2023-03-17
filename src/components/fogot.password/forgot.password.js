@@ -10,21 +10,21 @@ const ForgotPassword = ({ setEmail, submit, notification }) => (
       </div>
     </div>
     <div className="content-404 forgotpass">
-      <h1>
-        <b>FORGOT PASSWORD</b>
-      </h1>
+      <h2>
+        <b>Quên mật khẩu</b>
+      </h2>
       <span>{notification}</span>
       <input
         type="email"
-        placeholder="Email"
+        placeholder="Nhập email của bạn"
         onChange={(e) => setEmail(e.target.value)}
       />
       <br />
       <button className="btn btn-default" onClick={() => submit()}>
-        submit
+        Xác nhận
       </button>
       <h2>
-        <Link to="/">Bring me back Home</Link>
+        <Link to="/">Về trang chủ</Link>
       </h2>
     </div>
   </div>
